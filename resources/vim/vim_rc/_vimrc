@@ -1,0 +1,1050 @@
+"This might not be the real VIMRC, it's just sourced by it so we can keep this under version control more easily.
+" Cursor to the next line and press CTRL-2 (CTRL-@) to edit it.
+"   vimex: e $MYVIMRC
+
+if has('win32') || has('win64') || has('win16')
+    let s:WINDOWS = 1
+
+    function! JoinPath(...)
+        return join(a:000, '\')
+    endfunction
+else
+    let s:WINDOWS = 0
+
+    function! JoinPath(...)
+        return join(a:000, '/')
+    endfunction
+endif
+
+let s:MYVIMFILES = JoinPath(expand('<sfile>:p:h'), '..', 'vimfiles')
+
+
+" Load any pathogen bundles
+execute pathogen#infect()
+
+" Setup vundle
+    "This is just temporary
+    filetype off
+    "let s:bundle_path = JoinPath(s:MYVIMFILES, 'bundle')
+    "let s:vundle_path = JoinPath(s:bundle_path, 'vundle', '')
+    "exec 'set runtimepath+=' . fnameescape(s:vundle_path)
+    "call vundle#rc(s:bundle_path)
+
+    "Let vundle manage itself
+    "Bundle 'gmarik/vundle'
+
+    "Load additional bundles
+    "Bundle 'Lokaltog/vim-easymotion'
+    ""Bundle 'SirVer/ultisnips'
+    "Bundle 'honza/vim-snippets'
+    "Bundle 'wakatime/vim-wakatime'
+
+""" BASIC CONFIGURATION 
+
+    "Act like I expect on windows.
+    behave mswin
+
+    "But allow me to map alt-keys, even when they're menu accelerators (who the hell needs menus in Vim?)
+    set winaltkeys=no
+
+    "Don't bother trying to be VI compatible, be more useful than that.
+    set nocompatible
+
+    "Enable loading of plugins based on filetype
+    filetype plugin on
+
+    "Enable syntax highlighting.
+    syntax on
+
+    "Allow virtual editing (edit past end of line) in Visual block mode.
+    set virtualedit=block
+
+""" APPEARANCE AND BEHAVIOR
+
+    "Set the window/terminal title
+    set title
+    set titlestring=%(%m\ %)%t%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+
+    "Make backspace work properly on Windows
+    set backspace=2
+
+    "Give 3 columns to show folds
+    set foldcolumn=3
+
+    "Use a status line even if windows aren't split
+    set laststatus=2
+    set statusline=%m%r%f\ %y%=(@%c)\ %l/%L\ =\ %p%%%5(%)
+
+    "Configure printing
+    set printoptions=number:y,left:16pt,right:16pt
+    set printheader=%f%=Page\ %N
+
+    "use modelines
+    set modeline
+
+    "Prevent backup copies from being made (~)
+    set nobackup
+
+    "Auto indent
+    set ai
+
+    "Show partial commands
+    set showcmd
+
+    "Use CTRL-A and CTRL-X to increment and decrement numbers in the text.
+    "Apply it to single alphabetic characters as well.
+    set nrformats=octal,hex,alpha
+
+    "Don't scan include files for tags, it can take a really long time.
+    set complete-=i
+
+    "Tabs
+    set expandtab
+    set tabstop=4
+    set shiftwidth=4
+
+    "Configure how the tabs are titled
+    set guitablabel=[%N]\ %m%t
+    "Always show the tabline.
+    set showtabline=2
+
+    "Configure GUI options
+    set guioptions-=T   "Remove the tool bar from gvim
+    set guioptions-=m   "Remove the menu bar from gvim
+     
+    "Set the color scheme
+    color mearns_desert
+    set cursorline
+    if has('gui_running')
+        set cursorcolumn
+    endif
+
+    set foldmethod=syntax
+
+    "Keep some context at top and bottom, don't scroll all the way to bottom of
+    "screen.
+    set scrolloff=5
+
+    "Configure font to use in GUI
+    set guifont=Courier_New:h10:cDEFAULT
+
+    "Turn on line numbers by default
+    set nu
+
+    "Highlight search results
+    set hlsearch
+
+    syntax enable
+
+    "Configure the error format for QuickFix
+
+    "Some SCONS stuff. This generally needs to come first because subsequent
+    "things will match it.
+    "set errorformat=%-Gscons:\ Reading\ SConscript\ files\ ...
+    "set errorformat+=%-Gscons:\ done\ reading\ SConscript\ files.
+    "set errorformat+=%-Gscons:\ Building\ targets\ ...
+    "set errorformat+=%-Gscons:\ `%[%^']%\\+'\ is\ up\ to\ date.
+    "set errorformat+=%-Gscons:\ done\ building\ targets.
+    "set errorformat+=%-Gscons:\ Cleaning\ targets\ ...
+    "set errorformat+=%+Iscons:\ done\ cleaning\ targets.
+    "set errorformat+=%+Escons:\ \*\*\*\ Do\ not\ know\ how\ to\ %m
+    "set errorformat+=%+Escons:\ building\ terminated\ because\ of\ errors.
+    "set errorformat+=SCons\ Error:\ %m
+
+    "A general USAGE message
+    "set errorformat+=%+Iusage:\ %m
+
+    "HG Stat output.
+    "set errorformat+=%+IM\ %f
+    "set errorformat+=%+IA\ %f
+    "set errorformat+=%+IR\ %f
+    "set errorformat+=%+IC\ %f
+    "set errorformat+=%+I!\ %f
+    "set errorformat+=%+I?\ %f
+    "set errorformat+=%+II\ %f
+
+    "Ignore this "heading" error message from mingw, just print it as a
+    "non-error informational line (unfortunately, it still matches this
+    "pattern, so it's marked as "valid" and treated as the first error.
+    "So actually, I'm not sure what good this does.
+    "set errorformat+=%+G%f:\ In\ function\ '%m':
+
+    "Change directory in scons (for -u)
+    "set errorformat+=%-Dscons:\ Entering\ directory\ `%f'
+
+    "My normal debugging
+    "set errorformat+=DBG:\ %f:%l:\ %m
+
+    "set errorformat+=windres:\ %f:%l:\ %m   " windres
+
+    
+    "set errorformat+=%*[^:].obj:%f:(%*[^)]):\ %m        " gcc linker errors
+    "set errorformat+=%*[^:].o:%f:(%*[^)]):\ %m    
+
+    "set errorformat+=\"%f\"\\,\ line\ %l:\ %m	" Texas Instruments cl200 compiler
+    "set errorformat+=%f(%l)\ :\ %t%*\\D%n:\ %m
+    "set errorformat+=%*[^\"]\"%f\"%*\\D%l:\ %m
+    "set errorformat+=%f(%l)\ :\ %m
+    "set errorformat+=%f:%l:%c:%m
+    "set errorformat+=%f(%l):%m
+    "set errorformat+=%f:%l:%m
+    "set errorformat+=%f\|%l\|\ %m
+    "set errorformat+=%f:%l.%c-%*[0-9]:\ %m		" bison
+    "set errorformat+=%f:%l.%c:\ %m			" bison
+    "set errorformat+=%f:\ %m			" bison
+    "set errorformat+=%*[\"]%f%*[\"]\\,\ line\ %l:\ %m	" flex
+    "set errorformat+=%f:%l:\ %m	" mingw
+
+    "Use grep for grep
+    set grepprg=grep\ -rn
+
+
+""" CUSTOM MAPPINGS
+
+    let mapleader="\\"
+
+    nnoremap <Leader>tn :tabnew<CR>
+
+    map <Leader>b :buffer 
+    "Press tab after :b to show matching buffers.
+    set wildchar=<Tab> wildmenu wildmode=full
+
+    "Don't save global options (mappings, etc.) in session.
+    " That would prevent changes to vimrc from taking effect when loading
+    " a session.
+    set sessionoptions-=options
+
+    "Press F5 to insert the current date.
+    nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
+    inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
+
+    "Shift-F5 to insert current time.
+    nnoremap <S-F5> "=strftime("%H:%M:%S %Z %z")<CR>P
+    inoremap <S-F5> <C-R>=strftime("%H:%M:%S %Z %z")<CR>
+    
+    "Ctrl-Shift-F5 to insert the current date AND time.
+    nnoremap <C-F5> "=strftime("%Y-%m-%d %H:%M:%S %Z %z")<CR>P
+    inoremap <C-F5> <C-R>=strftime("%Y-%m-%d %H:%M:%S %Z %z")<CR>
+
+
+    " F6 to insert journal heading date.
+    nnoremap <F6> "=strftime("# %a - %Y %b %d\n\n")<CR>P
+    inoremap <F6> <C-R>=strftime("# %a - %Y %b %d\n\n")<CR>
+
+    " Shift-F5 to insert second-level journal heading (time).
+    nnoremap <S-F6> "=strftime("## %I:%M %p\n\n")<CR>P
+    inoremap <S-F6> <C-R>=strftime("## %I:%M %p\n\n")<CR>
+
+
+    "Press F2 to save the current session.
+    nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
+    "Shift-F2 to open it.
+    nmap <S-F2> :so Session.vim<CR>
+
+    "Control to save to a user session
+    nmap <C-F2> :wa<Bar>:mksession! ~/_vimsessions/
+    nmap <C-S-F2> :so ~/_vimsessions/
+
+   "map buffer numbers
+    "nnoremap <Leader>1 :1b<CR>
+    "nnoremap <Leader>2 :2b<CR>
+    "nnoremap <Leader>3 :3b<CR>
+    "nnoremap <Leader>4 :4b<CR>
+    "nnoremap <Leader>5 :5b<CR>
+    "nnoremap <Leader>6 :6b<CR>
+    "nnoremap <Leader>7 :7b<CR>
+    "nnoremap <Leader>8 :8b<CR>
+    "nnoremap <Leader>9 :9b<CR>
+    "nnoremap <Leader>0 :10b<CR>
+
+    nmap <silent> <Leader>ev :EditVimrc<CR>
+    nmap <silent> <Leader>sv :Vimrc<CR>
+    nmap <silent> <Leader>tv :TabnewVimrc<CR>
+    nmap <silent> <Leader>pv :SplitVimrc<CR>
+
+    "Use leader+L copy the current line to the clipboard
+    nmap <Leader>L V"*y
+
+    "Use Ctrl-F to toggle the menu bar.
+    nnoremap <C-F> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+    
+    "Type "qq" from insert or normal mode to escape. Type "q\q" to actually get a "qq"
+    imap qq <Esc>
+    map qq <Esc>
+    inoremap q\q qq
+    noremap q\q qq
+
+    "Don't know why I'd ever want to write and quit abruptly, but I often want to
+    "write.
+    map ZZ :w<CR>
+
+    "Use [[ etc to jump to beginning and end of curly-brace sections, but not
+    "necessarily in the first column. This is from vim help motion.txt
+    map [[ ?{<CR>w99[{
+    map ][ /}<CR>b99]}
+    map ]] j0[[%/{<CR>
+    map [] k$][%?}<CR>
+
+    "In normal mode (map) and in insert mode and on the command line (map!), use alt+ standard nav keys (hjkl)
+    " to navigate
+    "map <M-h> <Left>
+    "map! <M-h> <Left>
+    "map <M-l> <Right>
+    "map! <M-l> <Right>
+    "map <M-j> <Down>
+    "map! <M-j> <Down>
+    "map <M-k> <Up>
+    "map! <M-k> <Up>
+    ""Likewise, use alt+ w, b, and e for word nav (but these don't work on the command line)
+    "imap <M-w> <C-o>w
+    "map <M-w> w
+    "imap <M-b> <C-o>b
+    "map <M-b> b
+    "imap <M-e> <C-o>e
+    "map <M-e> e
+    "imap <M-S-W> <C-o>W
+    "map <M-S-W> W
+    "imap <M-S-B> <C-o>B
+    "map <M-S-B> B
+    "imap <M-S-E> <C-o>E
+    "map <M-S-E> E
+
+    "We already have CTRL-H for backspace and CTRL-M for enter. Let's do ALT-X for delete.
+    map! <M-x> <del>
+    map <M-x> <del>
+
+    "Alt+0, to go to col 0, like 0 in normal mode (Apparently can't map Alt-^ or Alt-$).
+    imap <M-0> <C-o>0
+    map <M-0> 0
+
+    "Alt+1 to go to first non-white space, like ^ in normal mode.
+    imap <M-1> <C-o>^
+    map <M-1> ^
+
+    "Use alt+/ to go to the end of the line.
+    imap <M-/> <C-o>$
+    map <M-/> $
+
+    "use Ctrl+\ as a synonym for <Leader>, including temporary escape in
+    "insert mode. Combined with the things above, this will be much better.
+    imap <C-\> <C-o><Leader>
+    map <C-\> <Leader>
+
+    "Leader plus zz to write.
+    map <Leader>zz   :w<CR>
+
+    "Make the split as big as possible, using with \_ or \-
+    map <Leader>_   <C-W>_
+    map <Leader>-   <Leader>_
+
+    "Equalize windows
+    map <Leader>=   <C-W>=
+
+    "Window nav
+    map <Leader>j   <C-W>j
+    map <Leader>k   <C-W>k
+    map <Leader>j   <C-W>l
+    map <Leader>h   <C-W>h
+
+    "Unmap <Leader>w from vimwiki
+    map <Leader>W  <C-W>W
+    
+    "Clear search highlighting
+    map <Leader>/   :nohlsearch<CR>
+    
+    "Press f10 to should show the highlighting of the current word.
+    map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+    "Press F11 to show the full stack of syntax matches under the cursor.
+    map <F11> :ShowSynstack<CR>
+
+    map <F12> :Scons!<CR>
+    map <C-F12> :Scons<CR>
+    map <S-F12> :Scons!
+    map <C-S-F12> :Scons
+
+    map <C-F8> :Ctags<CR>
+    map <S-F8> :Ptags<CR>
+    map <F8> :TagbarToggle<CR>
+
+    nmap <F4> :NERDTreeToggle<cr>
+
+    function! CommentOutLines(first, last)
+        let m = matchlist(getline(a:first), '\v(\s*).*')
+        let common_indent = m[1]
+
+        for line in range(a:first+1, a:last)
+            let o = getline(line)
+            let m = matchlist(o, '\v(\s*).*')
+            let indent = m[1]
+            
+            "Find matching comment prefix.
+            let i=0
+            let new_indent = ''
+            while i<strlen(indent) && i<strlen(common_indent) && (common_indent[i] == indent[i])
+                let new_indent = new_indent . common_indent[i]
+                let i = i+1
+            endwhile
+            let common_indent = new_indent
+        endfor
+
+        "Now replace each line with the common prefix, and the comment.
+        let l = strlen(common_indent)
+        for line in range(a:first, a:last)
+            let o = getline(line)
+            let s = strpart(o, l)
+            call setline(line, common_indent . printf(&commentstring, s))
+        endfor
+    endfunction
+
+    function! CommentOutOperator(type, ...)
+        if a:0 > 0 "More than one arg, was submitted from our visual mapping.
+            silent call CommentOutLines(line("'<"), line("'>"))
+        else
+            silent call CommentOutLines(line("'["), line("']"))
+        endif
+    endfunction
+
+    "Make gc an operator to comment out covered lines.
+    nnoremap <silent> gc :set opfunc=CommentOutOperator<CR>g@
+    "Make it work in visual mode as well.
+    vnoremap <silent> gc :<C-U>call CommentOutOperator(visualmode(), 1)<CR>
+    vnoremap <silent> gC :<C-U>call CommentOutOperator(visualmode(), 1)<CR>
+
+    "Make gcc and gC comment out the current line.
+    nmap gcc gc$
+    nmap gC gc$
+
+
+
+""" CUSTOM COMMANDS AND FUNCTIONS
+
+
+    " Run a system command and use the output to load the quickfix list. Note
+    " that this uses the *global* errorformat.
+    function! ReadQuickFix(cmd)
+        cgetexpr system(a:cmd)
+    endfunction
+
+    command! -nargs=+ -complete=shellcmd QuickFix call ReadQuickFix(<f-args>)
+
+    fun! FileExists(path)
+        return !empty(glob(a:path))
+    endfunction
+
+    command! -nargs=0 ExpVim execute "!start explorer \"" . $VIM . "\""
+    command! -nargs=0 ExpVimfiles execute "!start explorer \"" . s:MYVIMFILES . "\""
+    
+    command! -nargs=0 HelpTagReload execute 'helptags ' . JoinPath(s:MYVIMFILES, 'doc')
+
+    "This function/command/F11 to print the entire stack of highlighting.
+    "Also may be usefule:
+    ":verbose hi <group>
+    " Tells you where the currently active rule for highlighting <group> was last
+    " defined (i.e., what file).
+    fun! ShowSynstack()
+        for id in synstack(line("."), col("."))
+            echo synIDattr(id, "name")
+        endfor
+    endfunction
+    command! ShowSynstack call ShowSynstack()
+
+    fun! TemplateFile(name)
+        return expand(JoinPath(s:MYVIMFILES, "templates", a:name . ".vim"))
+    endfunction
+
+    fun! TemplateExists(name)
+        return FileExists(TemplateFile(a:name))
+    endfunction
+
+    fun! TemplateAsSnippet(name)
+        let templatefile = TemplateFile(a:name)
+        let template = readfile(templatefile, "b")
+        call UltiSnips#Anon(join(template, "\n"))
+    endfunction
+
+    "Read in a template file
+    command! -nargs=1 -bar Template call TemplateAsSnippet(<f-args>)
+    "Edit a template file
+    command! -nargs=1 EditTemplate exec 'e '.TemplateFile(<f-args>)
+
+    "Delete the entire buffer
+    command! Clear %d
+
+    function! HgStat(bang, ...)
+        if strlen(a:bang)
+            let l:all=" --all "
+        else
+            let l:all=""
+        endif
+
+        let l:output=system("hg stat " . l:all . join(a:000, " "))
+        let l:ec=v:shell_error
+        if l:ec==0
+            let l:olist=split(l:output, '[\r\n]')
+            let l:qflist=[]
+            for l:stat in l:olist
+                let l:fn=l:stat[2:]
+                let l:flag=l:stat[0]
+                if l:flag == "M"
+                    let l:text="M - Modified"
+                elseif l:flag == "A"
+                    let l:text="A - Added"
+                elseif l:flag == "R"
+                    let l:text="R - Removed"
+                elseif l:flag == "C"
+                    let l:text="C - Clean (unmodified)"
+                elseif l:flag == "!"
+                    let l:text="! - Missing"
+                elseif l:flag == "?"
+                    let l:text="? - Not tracked"
+                elseif l:flag == "I"
+                    let l:text="I - Ignored"
+                elseif l:flag == " "
+                    let l:text="(origin of prev)"
+                else
+                    let l:text=l:flag . " - (not known)"
+                endif
+
+                let l:dict={'filename': l:fn, 'text': l:text}
+                call add(l:qflist, l:dict)
+            endfor
+            call setqflist(l:qflist)
+            copen
+        else
+            echohl WarningMsg
+            echomsg "Hg exited with error code " l:ec
+            echohl None
+        endif
+    endfunction
+    command! -nargs=* -bang HgStat :call HgStat(<q-bang>, <f-args>)
+
+
+    hi  __SconsSuccess  guifg=green
+    "No !, then link is only made if SconsSuccessMsg is not already defined.
+    hi link SuccessMsg __SconsSuccess
+    hi link SconsSuccessMsg SuccessMsg
+
+    "We make it a little easier by setting it to any empty list if it's not already set.
+    " This way, they can tab-complete the vairable name.
+    if !exists('g:sconsopts')
+        let g:sconsopts=[]
+    endif
+
+    "Simple function to set the sconsopts. These are the options that are automatically included
+    " in calls to scons made by the Scons function below.
+    "
+    " If bang is an empty string, sets b:sconsopts, otherwise, sets g:sconsopts.
+    function! SconsSetOpts(bang, ...)
+        if strlen(a:bang)
+            let l:what="g:sconsopts"
+            if(exists(l:what))
+                unlet g:sconsopts
+            endif
+            let g:sconsopts=a:000
+        else
+            let l:what="b:sconsopts"
+            if(exists(l:what))
+                unlet b:sconsopts
+            endif
+            let b:sconsopts=a:000
+        endif
+        echo "Set " . l:what . " to: [" . join(a:000, ", ") . "]"
+    endfunction
+    command! -nargs=* -bang SconsSetOpts :call SconsSetOpts(<q-bang>, <f-args>)
+    command! -nargs=* -bang SConsSetOpts SconsSetOpts<bang> <args>
+
+    " Execute scons using default and specified options, and put the results
+    " in the quick fix window.
+    "
+    " With a bang (non-empty string in a:bang), it tends to be less disruptive, similar
+    " to :make!. On success, it echos a message indicating success and showing the command
+    " that was used. On failure, it prints a warning message indicating the failure. The
+    " quickfix window is still loaded, but it's not opened, and it doesn't jump automatically
+    " to the first error. It also :redraw's the message window before printing the final
+    " message, both for success and failure, so that there is only one message and you
+    " shouldn't need to press any keys to continue. But you can still use :messages
+    " to see any messages that were issued.
+    "
+    " Without a bang it's more disruptive, like :make. On success, it still prints a message,
+    " but it doesn't redraw first, so you will likely have to hit enter to continue. On
+    " failure, it echos a warning message and jumps to the first error.
+    "
+    " Other than the bang, all subsequent arguments are optional, and are simply given as
+    " command line arguments to SCons when invoking. In addition to the provided argument,
+    " if either b:sconsopts or g:sconsopts are set, they are also included as options to
+    " Scons (only one or the other of the buffer-local and the global variable is used,
+    " with the buffer-local taking precendence if set). If set, these variables should
+    " be a list of strings to provide to Scons, although they can also be simple strings
+    " will be provided as is to the shell when invoking scons. These options are included
+    " BEFORE the arguments supplied to the function. You can use the :SconsSetOpts
+    " command or SconsSetOpts() function to set these variables as well.
+    "
+    " Additionally, a "-u" option is inserted as the first argument to scons, which tells
+    " it to walk up the directory tree until it finds an SConstruct, and run that.
+    "
+    " You can override the use of th edefault "-u" and the *:sconsopts variables for a single
+    " call by passing "!!" or "!" respectively as the FIRST argument after bang. If you pass
+    " in the string "!", it uses the "-u", but neither b:sconsopts not g:sconsopts. If you
+    " pass in "!!", it doesn't use the "-u" either.
+    "
+    function! Scons(bang, ...)
+        let l:bang = strlen(a:bang) != 0
+        let l:noopts = 0
+        let l:nodefopts = 0
+        let l:args = a:000
+
+        if a:0 > 0 
+            if a:000[0] == '!'
+                let l:noopts = 1
+                let l:args = l:args[1:]
+            elseif a:000[0] == '!!'
+                let l:noopts = 1
+                let l:nodefopts = 1
+                let l:args = l:args[1:]
+            endif
+        endif
+
+        if l:noopts == 0
+            if exists('b:sconsopts')
+                let l:opts=b:sconsopts
+                echomsg "Getting sconsopts from b:sconsopts"
+            elseif exists('g:sconsopts')
+                let l:opts=g:sconsopts
+                echomsg "Getting sconsopts from g:sconsopts"
+            else
+                let l:opts=""
+            endif
+
+            if type(l:opts) == 1
+                "Already a string, good."
+                let l:stropts = l:opts
+            elseif type(l:opts) == 3
+                "List, convert to string.
+                let l:stropts = join(l:opts, " ")
+            else
+                echohl WarningMsg
+                echomsg "sconsopts are invalid type. Require a string or list."
+                echohl None
+            endif
+        else
+            let l:stropts = ""
+        endif
+
+        if l:nodefopts == 0
+            let l:stropts = "-u " . l:stropts
+        endif
+
+        let l:cmd = "scons " . l:stropts . " " . join(l:args, " ")
+        let l:output=system(l:cmd)
+        let l:ec=v:shell_error
+            
+        "Load the output into the quickfix window.
+        cgetexpr l:output
+        let l:qflist = getqflist()
+        let l:qfcmd = {'text': l:cmd, 'type': 'I'}
+        call insert(l:qflist, l:qfcmd, 0)
+        call setqflist(l:qflist)
+
+        if l:ec==0
+            if l:bang
+                "Clear out the previous messages, so no need to press a key to continue
+                "But they're still in :messages.
+                redraw
+            endif
+            echohl SconsSuccessMsg
+            echomsg "Scons completed successfully (`" . l:cmd . "`)"
+            echohl None
+        else
+            if l:bang
+                "As above
+                redraw
+
+                "Warn about the failure
+                echohl WarningMsg
+                echomsg "Scons exited with error code " l:ec
+                echohl None
+            else
+                "Warn about the failure
+                echohl WarningMsg
+                echomsg "Scons exited with error code " l:ec
+                echohl None
+
+                "Jump to first error
+                cc
+
+                "let l:outlist=getqflist()
+                "echohl WarningMsg
+                "for l:message in l:outlist
+                "    if l:message["valid"]
+                "        echomsg l:message["text"]
+                "    endif
+                "endfor
+                "echohl None
+            endif
+        endif
+    endfunction
+
+    " Does completion for the Scons command below.
+    "
+    " Looks for b:sconstargets and g:sconstargets for a list of
+    " default targets to provide as possible completions, with the
+    " buffer local (b:) variable taking precedence.
+    "
+    " These variables should be list type variables holding strings
+    " that will be offered as possible suggestions for the Scons command.
+    "
+    " If neither of these variables is set, or if the selected variable
+    " has a final element equal to "...", then the function will attempt
+    " to invoke scons itself to get a list of possible completions.
+    " Your SConstruct MUST BE SET UP FOR THIS in order for it to work.
+    " To get the list, the function will pass "--silent --targets --noop"
+    " to scons, and expects the output to be a list of possible completions,
+    " one per line. If scons fails (non-zero error code) when it is invoked
+    " as such, we just ignore it.
+    "
+    " If you don't want to risk running scons with these arguments, you can
+    " set b:sconsnocomplete or g:sconsnocomplete to non-zero, with the value
+    " of the buffer-local taking precedence. therefore if the buffer-local is
+    " set to 0 and the global is set to non-zero, then scons will still be
+    " invoked in this way.
+    function! SconsCmdCompletion(ArgLead, CmdLine, CursorPos)
+        let l:sconstargets=['...']
+        if exists('b:sconstargets') && type(b:sconstargets) == 3
+            let l:sconstargets=b:sconstargets
+        elseif exists('g:sconstargets') && type(g:sconstargets) == 3
+            let l:sconstargets=g:sconstargets
+        endif
+
+        "Default, or if they specify '...' as the last of their custom targets,
+        " will attempt to get a list from scons itself, if their SConstruct
+        " supports our std opts.
+        if len(l:sconstargets) > 0 && l:sconstargets[-1] == '...'
+
+            "Create the list of targets we know about so far, everything except the ...
+            let l:str = join(l:sconstargets[:-2], "\n")
+            if len(l:sconstargets) > 1
+                let l:str .= "\n"
+            endif
+
+            "Now ask Scons for the rest.
+            let l:nocomplete = 0
+            if exists('b:sconsnocomplete')
+                let l:nocomplete = b:sconsnocomplete
+            elseif exists('g:sconsnocomplete')
+                let l:nocomplete = b:sconsnocomplete
+            endif
+            if l:nocomplete == 0
+                let l:str .= SconsAskSconsForTargets()
+            endif
+        else
+            "Otherwise, just use the custom values.
+            let l:str = join(l:sconstargets, "\n")
+        endif
+
+        let l:str .= "\n!\n!!"
+        echomsg l:str
+        redraw
+        return l:str
+    endfunction
+    command! -nargs=* -bang -complete=custom,SconsCmdCompletion Scons :call Scons(<q-bang>, <f-args>)
+    command! -nargs=* -bang -complete=custom,SconsCmdCompletion SCons SCons<bang> <args>
+
+    "Helper function which actually invokes scons, ideally to get the list of targets.
+    function! SconsAskSconsForTargets(...)
+        if a:0 == 0
+            let l:optstr = "--silent --targets --noop"
+        else
+            let l:optstr = join(a:000, " ")
+        endif
+        let l:output=system("scons -u " . l:optstr)
+        let l:ec=v:shell_error
+        if l:ec == 0
+            return l:output
+        else
+            return ""
+        endif
+    endfunction
+
+    function! SconsSetTargets(bang, ...)
+        if strlen(a:bang)
+            if a:0 == 0
+                if exists('g:sconstargets')
+                    unlet g:sconstargets
+                endif
+            else
+                let g:sconstargets = a:000
+            endif
+        else
+            if a:0 == 0
+                if exists('b:sconstargets')
+                    unlet b:sconstargets
+                endif
+            else
+                let b:sconstargets = a:000
+            endif
+        endif
+        echomsg "Set " . a:bang . "targets to [" . join(a:000, ", ") . "]"
+    endfunction
+    command! -nargs=* -bang SconsSetTargets :call SconsSetTargets(<q-bang>, <f-args>)
+    command! -nargs=* -bang SConsSetTargets :SconsSetTargets<bang> <args>
+    command! -bang SconsClearTargets :SconsSetTargets<bang>
+    command! -bang SConsClearTargets :SconsClearTargets<bang>
+
+    function! SconsAsk(bang, ...)
+        let l:targets = split(call(function("SconsAskSconsForTargets"), a:000), "[\\n\\r]\\+")
+        call call(function('SconsSetTargets'), [a:bang]+l:targets)
+        call SconsSetComplete(a:bang, 0)
+    endfunction
+    command! -nargs=* -bang SconsAsk :call SconsAsk(<q-bang>, <f-args>)
+    command! -nargs=* -bang SConsAsk :SconsAsk<bang> <args>
+
+    function! SconsSetComplete(bang, to)
+        if strlen(a:bang)
+            if exists( 'g:sconsnocomplete' )
+                unlet g:sconsnocomplete
+            endif
+            if a:to
+                let g:sconsnocomplete=0
+            else
+                let g:sconsnocomplete=1
+            endif
+        else
+            if exists('b:sconsnocomplete')
+                unlet b:sconsnocomplete
+            endif
+            if a:to
+                let b:sconsnocomplete=0
+            else
+                let b:sconsnocomplete=1
+            endif
+        endif
+    endfunction
+    command! -bang SconsComplete :call SconsSetComplete(<q-bang>, 1)
+    command! -bang SconsNoComplete :call SconsSetComplete(<q-bang>, 0)
+    command! -bang SConsComplete SconsComplete<bang>
+    command! -bang SConsNoComplete SconsNoComplete<bang>
+
+    command! UseScons :set makeprg=scons\ -u
+    command! UseMake :set makeprg=make
+
+    command! -nargs=* -complete=file Ctags :silent !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q <args> <CR>
+    command! -nargs=* -complete=file Ptags :silent !ctags -R --python-kinds=-i --fields=+iaS --extra=+q --exclude=build <args> <CR>
+
+    "Some textwrapping shortcuts
+    command! WR0 :WR 0
+    command! WR80 :WR 80
+    command! WR110 :WR 110
+    command! -nargs=1 WR set textwidth=<args> <Bar> echo "Textwidth set to" &textwidth "."
+
+    command! Lorem Template lorem_1p
+
+
+    " Insert a modeline at the current line.
+    command! Modeline call append(line('.')-1, printf(&commentstring, " vim: set tw=78: ")) | normal 0kWWW
+    command! FtModeline call append(line('.')-1, printf(&commentstring, " vim: set ft=" . &filetype ))
+
+    " Insert a VIMEX command line at the current line.
+    command! VCL call append(line('.')-1, " vimex: echo('Hello, World!')") | normal 0kWW
+
+
+    """ VIMEX COMMANDS LINES """
+    " A special syntax I've devised, similar to the modeline, to easily store
+    " vim commands in comments, etc. 
+
+    " Of course, this is the same as Ctrl-2, but it's fine. With a visual selection,
+    " executes all of the lines one by one. With a count, it executes the specified number
+    " of lines, starting with the current, and moving down from there.
+    map <C-@> :ExeVCL<CR>
+
+    " If a command is found in the given string, returns the command, otherwise returns
+    " 0. You can use the type() function to determine if the result is a string or 0
+    " (because straight comparison with 0 doesn't work, it's always true). The type
+    " of a string is 1, the type of a number is 0.
+    "
+    " The syntax is simple enough: 0 or more white space characters at the beginning of
+    " the line, followed by 0 or more comment-like characters (see below), then 1 or more
+    " white-space characters, then "vimex:" and one or more additional whitespace chars.
+    " Then the command is the rest of the line.
+    "
+    " The comment-like strings that can preceed the command line are as follows:
+    " Any sequence of the characters /, *, #, ", ;, or :,  or the string "rem". 
+    " This lets you embed vimex commands in comments, but keep them properly indented
+    " with the rest of your code.
+    fun! GetCommandLine(string, ...)
+        let patterns = ["vimex"]
+        if a:0 > 0
+            let patterns = a:000[:]
+        endif
+        for pattern in patterns
+            let match = "\\c^\\s*\\([/*#\";:]*\\|rem\\)\\?\\s\\+" . pattern . ":\\s\\+"
+            let prefix = matchstr(a:string, "\\c^\\s*\\([/*#\";:]*\\|rem\\)\\?\\s\\+" . pattern . ":\\s\\+")
+            let len = strlen(prefix)
+            if len != 0
+                "Match found. Now trim off the beginning.
+                let cmd = strpart(a:string, len)
+                return cmd
+            endif
+        endfor
+        return 0
+    endfunction
+
+    "gets the command line with <GetCommandLine> and executes it as an exe command.
+    fun! ExeCommandLine(string)
+        let cmd = GetCommandLine(a:string)
+        if type(cmd) == 0
+            "No command.
+            return 0
+        else
+            "Command found
+            execute cmd
+        endif
+    endfunction
+
+    "Like ExeCommandLine, but gets a range of lines from the buffer and uses them.
+    fun! ExeCommandLineFromBuffer(line1, line2)
+        for lnum in range(a:line1, a:line2)
+            call ExeCommandLine(getline(lnum))
+        endfor
+    endfunction
+    command! -range ExeVCL call ExeCommandLineFromBuffer(<line1>, <line2>)
+
+
+    """ EASY TAGS
+
+    command! GenTags call GenAndUseTagsForThisBuffer()
+
+    " Parse the current buffer to generate a tag file for it.
+    " Tags are declared with a simple format: letters, numbers, spaces, dashes,
+    " and underscores, surrounded by a single * on each side. First character of a
+    " tag cannot be a space, and the entire thing (including first *) must be
+    " preceded by a space.
+    " 
+    " Writes it out to the given file. If a second argument is given and it's
+    " true, then the tag file is cleared first. Otherwise, it's appeneded to.
+    fun! GenTagsForThisBuffer(tagfile, ...)
+        let filename = expand('%')
+        let opos = getpos('.')
+        let tagpattern = "[-_a-zA-Z0-9<>][-_a-zA-Z0-9<> ]\\+"
+        let pattern = "\\s\\*" . tagpattern . "\\*"
+        let tags = []
+        call cursor(1, 0)
+        while 1
+            let [line, column] = searchpos(pattern, 'W')
+            if line != 0
+                let tag = matchstr(getline(line), pattern, column-1)
+                let tag = matchstr(tag, tagpattern)
+                call add(tags, tag)
+            else
+                break
+            endif
+        endwhile
+
+        "Now dump the tags to the tag file.
+        exec "split " . a:tagfile
+        if a:0 > 0
+            if a:1
+                "Clear it.
+                %d
+            endif
+        endif
+        call sort(tags)
+        for tag in tags
+            call append(line('$'), tag . "\t" . filename . "\t/*" . tag . "*/")
+        endfor
+        write
+        q
+        call setpos('.', opos)
+    endfunction
+
+    fun! GenAndUseTagsForThisBuffer()
+        let tagfile = expand("%") . ".tags"
+        call GenTagsForThisBuffer(tagfile, 1)
+        exec "set tags=" . tagfile
+    endfunction
+
+
+""" PLUGINS CONFIGURATION
+
+    let g:tagbar_autopreview = 1
+
+    let g:surround_{char2nr("b")}="**\r**"
+    let g:surround_{char2nr("i")}="_\r_"
+    let g:surround_{char2nr("c")}="`\r`"
+
+    let g:mustache_abbreviations = 1
+
+    """ vim-go
+
+        let g:go_fmt_autosave = 1
+        let g:go_fmt_experimental = 0
+
+    """ Taboo.Vim
+        set sessionoptions+=tabpages,globals
+        let g:taboo_renamed_tab_format="[%N] %m%f"
+        let g:taboo_modified_tab_flag="+"
+        command! -nargs=* Tabname :TabooRename <args>
+        nnoremap <Leader>nt :Tabname 
+        nnoremap <Leader>ttn :TabooOpen 
+
+    """ Vimwiki configuration
+        let g:vimwiki_folding=1
+        let g:vimwiki_fold_lists=1
+
+        "Set default options.
+        let wiki = {}
+        let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'c': 'c', 'vim': 'vim', 'java': 'java'}
+        let g:vimwiki_list = [wiki]
+
+    """ TaskList
+
+        map <leader>tl <Plug>TaskList
+
+    """ SuperTab
+        let g:SuperTabDefaultCompletionType = "context"
+        set completeopt=menuone,longest,preview
+
+    """ ultisnips
+        let g:snips_author="Maytag Metalark"
+
+        let g:ultisnips_python_style = "sphinx"
+        let g:ultisnips_python_quoting_style = "double"
+
+        let g:UltiSnipsExpandTrigger="<tab>"
+        let g:UltiSnipsJumpForwardTrigger="<tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+        "For 'private' snippets created with :UltiSnipsEdit
+        let g:UltiSnipsSnippetsDir=s:MYVIMFILES . '/UltiSnips'
+
+        command! -nargs=0 EditSnippets split|UltiSnipsEdit
+
+
+""" FILE TYPES AND AUTOCMDS
+
+let g:tex_flavor = "latex"
+
+" By default, expand all folds when opening a file.
+" For some reason, this causes every file with folds to be marked dirty on
+" load, which is much more annoying than just hitting <C-Z>-M
+"au! BufRead * setlocal foldlevel=999
+
+"Autocommands to recognize filetypes are in vimfiles/filetype.vim
+"Commands to run based on file-type are in ftplugin, in general. Additions to 
+" the standard ones should be put in vimfiles/after/ftplugin
+
+"""""""""""""""""""""""""""""""""""""
+
+" Explore the directory containing this file.
+" vimex: execute('!start explorer "' . expand('%:h') . '"')
+
+" Commit this file to SVN.
+" vimex: execute('!start svn ci "' . expand('%') . '"')
+
+" Diff this file with SVN.
+" vimex: execute('!svn diff "' . expand('%') . '"')
+
+ " vim: set tw=0: 
+
