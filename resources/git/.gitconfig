@@ -1,0 +1,42 @@
+[push]
+    default = simple
+[user]
+    name = Brian Mearns
+    email = bmearns@commercehub.com
+[core]
+    excludesfile = ~/.gitignore-global
+    eol = lf
+    pager = cat
+[merge]
+[alias]
+    sub = submodule
+    subm = submodule
+    cfg = config
+    ci = commit
+    co = checkout
+    st = status
+    stat = status
+    tags = show-ref --tags
+    show-tag = rev-list -n 1
+    addall = add -A
+    aa = add -A
+    a = add
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    who = shortlog
+    whostat = shortlog -s
+    amend = commit --amend --no-edit
+    ammend = commit --amend --no-edit
+    br = branch
+
+    #Show the names of changed files.
+    changed = diff --name-only
+    ch = diff --name-only
+
+    #The names of staged files
+    ready = diff --name-only --staged
+    rdy = diff --name-only --staged
+
+    #Diffs that have been staged
+    staged = diff --staged
+    stg = diff --staged

@@ -1,2 +1,1 @@
-
-@powershell "scripts/bootstrap-001.ps1"
+@powershell "scripts/bootstrap-00.ps1"
