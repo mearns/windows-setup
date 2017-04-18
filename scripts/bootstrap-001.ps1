@@ -15,7 +15,21 @@ choco install -y jdk8
 choco install -y ctags
 choco install -y python2
 choco install -y wget
+choco install -y inkscape
+choco install -y nvm
+choco install -y gimp
+choco install -y vagrant
+choco install -y obs-studio
 # choco install unxutils    # Use git bash utils, instead, to avoid mixing things up.
+
+# Install useful node versions with nvm
+nvm install latest
+nvm install v7.9.0 # Common
+nvm install v6.10  # LTS
+nvm use v7.9.0
+
+# Place GIT Bash's /usr/bin dir to the path
+[Environment]::SetEnvironmentVariable("PATH", "C:\Program Files\Git\usr\bin;$env:PATH", "User")
 
 # Clone Vimfiles
 Write-Host "Cloneing Vimfiles..."
