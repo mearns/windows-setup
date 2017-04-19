@@ -47,7 +47,6 @@ Function Backup-Dir()
 Function Backup-File()
 {
   param([string]$path, [string]$name, [string]$ext = "")
-
   If (Test-Path $path) {
     $hash = (Get-FileHash -Path "$path" -Algorithm SHA512).Hash
     $backupFile = "$(Get-Backup-Dir)\$name-$hash$ext";
@@ -55,5 +54,7 @@ Function Backup-File()
       Add-Content "$(Get-Backup-Manifest-File)" "Backing up $name from [$path] to [$backupFile]`n"
       Copy-Item -Path "$path" -Destination "$backupFile"
     }
+    return $backupFile
   }
+  return $false
 }

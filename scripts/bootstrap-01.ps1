@@ -6,7 +6,6 @@ Write-Host "Running Brian Mearns' Windows Setup..."
 . "$PSScriptRoot\util\env-vars.ps1"
 . "$PSScriptRoot\util\install.ps1"
 
-Initialize-Backup
 
 # Installs chocolatey
 iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -35,8 +34,8 @@ Install-Resource-File -ResourcePath "git\.gitignore-global" -InstallPath "$HOME\
 
 ### Mercurial
 choco install -y hg
-Install-Resource-File -ResourcePath "git\.gitconfig" -InstallPath "$HOME\.gitconfig" -name "gitconfig"
-Install-Resource-File -ResourcePath "git\.gitignore-global" -InstallPath "$HOME\.gitignore-global" -name "gitignore-global"
+Install-Resource-File -ResourcePath "mercurial\.hgignore-global" -InstallPath "$HOME\.hgignore-global" -name "hgignore-global"
+Install-Resource-File -ResourcePath "mercurial\mercurial.ini" -InstallPath "$HOME\mercurial.ini" -name "mercurial.ini"
 
 ### Bashy stuff
 
