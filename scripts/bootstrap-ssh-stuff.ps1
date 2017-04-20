@@ -68,7 +68,13 @@ Else {
   New-Item -ItemType "directory" -Path $sshDirPath
 }
 
-$proc = Start-Process "C:\Program Files\Git\usr\bin\ssh-keygen.exe" -ArgumentList ("-q", "-f", $privateKeyPath, "-b", $keySizeBits, "-P", "''") -Wait -NoNewWindow -PassThru
+$proc = Start-Process "C:\Program Files\Git\usr\bin\ssh-keygen.exe" -ArgumentList (
+    "-q",
+    "-f", $privateKeyPath,
+    "-b", $keySizeBits,
+    "-C", "$Env:USERNAME@${Env:COMPUTERNAME}.${Env:USERDNSDOMAIN}_$(Get-Date -format yyyy-MM-dd)",
+    "-P", "''"  # No password
+  ) -Wait -NoNewWindow -PassThru
 If ($proc.ExitCode -ne 0)
 {
     $exitCode = $proc.ExitCode
