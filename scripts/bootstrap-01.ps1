@@ -12,7 +12,6 @@ Write-Host "Running Brian Mearns' Windows Setup..."
 iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
 
 # Install stuff
-Choco-Install "atom"
 Choco-Install "conemu"
 Choco-Install "hg"
 Choco-Install "ctags"
