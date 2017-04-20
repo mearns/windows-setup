@@ -10,7 +10,7 @@ Ensure-On-Path -Element $atomBinPath -EnvType "User"
 $env:PATH = "$atomBinPath;$env:PATH"
 
 # Install Atom packages
-apm install docblocker
+apm install docblockr
 apm install editorconfig
 apm install highlight-selected
 apm install language-javascript-jsx
@@ -20,3 +20,6 @@ apm install linter-eslint
 apm install linter-markdown
 apm install minimap
 apm install revert-buffer
+
+# Remove some packages I don't like, that some other setup scripts put there. (grumpycat)
+apm uninstall jsformat

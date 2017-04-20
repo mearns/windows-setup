@@ -30,9 +30,10 @@ Function Ensure-On-Path()
 {
   param([string]$element, [string]$envType = "User")
 
-  $pathComponents = [Environment]::GetEnvironmentVariable("PATH", $envType)
+  $pathComponents = [Environment]::GetEnvironmentVariable("PATH", $envType).Split(';')
   If (-Not $pathComponents.Contains($element)) {
-    $newPath = ($pathComponents + (, $element)) -join ";"
+    $newPathComponents = $pathComponents + (,$element)
+    $newPath = $newPathComponents -join ";"
   }
   [Environment]::SetEnvironmentVariable("PATH", $newPath, $envType)
 }
