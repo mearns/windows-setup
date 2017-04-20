@@ -14,6 +14,46 @@ If (Test-Path $sshDirPath)
   $privateKeyBackupPath = Backup-File -Path $privateKeyPath -Name "id_rsa"
   $publicKeyBackupPath = Backup-File -Path $publicKeyPath -Name "id_rsa.pub"
 
+  $oldPublicKey = $false
+  If ($publicKeyBackupPath)
+  {
+    $oldPublicKey = Get-Content $publicKeyBackupPath
+  }
+  ElseIf ($privateKeyBackupPath)
+  {
+    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+    $pinfo.FileName = "C:\Program Files\Git\usr\bin\ssh-keygen.exe"
+    $pinfo.RedirectStandardOutput = $true
+    $pinfo.UseShellExecute = $false
+    $pinfo.Arguments = ("-y", "-f", $privateKeyPath)
+    $p = New-Object System.Diagnostics.Process
+    $p.StartInfo = $pinfo
+    $p.Start() | Out-Null
+    $oldPublicKey = $p.StandardOutput.ReadToEnd()
+    $p.WaitForExit()
+    $exitCode = $p.ExitCode
+    If ($exitCode -ne 0)
+    {
+      throw "Failed to read public key from existin private key (exit code $exitCode)"
+    }
+  }
+
+  If ($oldPublicKey)
+  {
+    Add-Manual-Step -Title "Revoke SSH Public Key" -Lines (
+      "You already had SSH keys installed on this system under ``$sshDirPath``. It has been backed up to:",
+      "> $publicKeyBackupPath",
+      "> $privateKeyBackupPath",
+      "",
+      "A new SSH Key Pair will be generated under ``$sshDirPath``; it is recommended that you *revoke* your previous",
+      "SSH Public Key from any system that know about it, so that it can no longer be used. The old public key",
+      "(the one you should probably revoke) is:",
+      "",
+      "> $oldPublicKey"
+    )
+  }
+
+  # Delete the old files (already backed-up)
   If (Test-Path $privateKeyPath)
   {
       Remove-Item $privateKeyPath
@@ -23,21 +63,6 @@ If (Test-Path $sshDirPath)
   {
       Remove-Item $publicKeyPath
   }
-
-  If ($publicKeyBackupPath)
-  {
-    Add-Manual-Step -Title "Revoke SSH Public Key" -Lines (
-      "You already had an SSH public key installed on this system at ``$publicKeyPath``. It has been backed up to:",
-      "> $publicKeyBackupPath",
-      "A new SSH Key Pair will be generated under ``$sshDirPath``; it is recommended that you *revoke* your previous",
-      "SSH Public Key from any system that know about it, so that it can no longer be used. The old public key",
-      "(the one you should probably revoke) is:",
-      "",
-      "> $(Get-Content $publicKeyBackupPath)"
-    )
-  }
-  # TODO: If only the private key existed.
-  # FIXME: Delete old files.
 }
 Else {
   New-Item -ItemType "directory" -Path $sshDirPath

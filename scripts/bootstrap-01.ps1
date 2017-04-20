@@ -5,6 +5,7 @@ Write-Host "Running Brian Mearns' Windows Setup..."
 . "$PSScriptRoot\util\resources.ps1"
 . "$PSScriptRoot\util\env-vars.ps1"
 . "$PSScriptRoot\util\install.ps1"
+. "$PSScriptRoot\util\manual-work.ps1"
 
 
 # Installs chocolatey
@@ -13,7 +14,6 @@ iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.p
 # Install stuff
 Choco-Install "atom"
 Choco-Install "conemu"
-Choco-Install "googlechrome"
 Choco-Install "hg"
 Choco-Install "ctags"
 Choco-Install "python2"
@@ -22,6 +22,15 @@ Choco-Install "inkscape"
 Choco-Install "gimp"
 Choco-Install "vagrant"
 Choco-Install "graphicsmagick"
+Choco-Install "imagemagick"
+Choco-Install "gnuplot"
+Choco-Install "graphviz"
+
+### Chrome
+Choco-Install "googlechrome"
+Add-Manual-Step -Title "Login To Google Chrome" -Lines (
+  "Open Google Chrome and Log into your account or accounts"
+)
 
 ### Git
 Choco-Install "git"
