@@ -24,6 +24,7 @@ Choco-Install "graphicsmagick"
 Choco-Install "imagemagick"
 Choco-Install "gnuplot"
 Choco-Install "graphviz"
+Choco-Install "spotify"
 
 ### Chrome
 Choco-Install "googlechrome"

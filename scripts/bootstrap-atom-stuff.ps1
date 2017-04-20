@@ -6,20 +6,19 @@ Choco-Install "atom"
 $atomBinPath = "$Env:LOCALAPPDATA\atom\bin"
 Ensure-On-Path -Element $atomBinPath -EnvType "User"
 
-# Ensure it's on the local path for executing.
-$env:PATH = "$atomBinPath;$env:PATH"
-
 # Install Atom packages
-apm install docblockr
-apm install editorconfig
-apm install highlight-selected
-apm install language-javascript-jsx
-apm install language-markdown
-apm install linter
-apm install linter-eslint
-apm install linter-markdown
-apm install minimap
-apm install revert-buffer
+# FIXME: This doesn't seem to be working from the same run that installs atom.
+Apm-Install -Package docblockr
+Apm-Install -Package editorconfig
+Apm-Install -Package highlight-selected
+Apm-Install -Package language-javascript-jsx
+Apm-Install -Package language-markdown
+Apm-Install -Package linter
+Apm-Install -Package linter-eslint
+Apm-Install -Package linter-markdown
+Apm-Install -Package minimap
+Apm-Install -Package revert-buffer
 
 # Remove some packages I don't like, that some other setup scripts put there. (grumpycat)
-apm uninstall jsformat
+Apm-Uninstall -Package jsformat
+

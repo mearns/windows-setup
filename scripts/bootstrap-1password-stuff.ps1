@@ -42,7 +42,7 @@ Try {
     $processName = $proc.ProcessName
     throw "1password install timedout (process [$processId] $processName). It may or may not have been successful!"
   }
-  $processRunning = false
+  $processRunning = $false
 
   $exitCode = $proc.ExitCode
   If ($exitCode) {

@@ -23,7 +23,7 @@ Function Ensure-At-Start-Of-Path()
 
   $pathComponents = (,$element) + ([Environment]::GetEnvironmentVariable("PATH", $envType).Split(';') -ne $element)
   $newPath = $pathComponents -join ";"
-  [Environment]::SetEnvironmentVariable("PATH", $newPath, $envType)
+  Set-Env-Var -Name "PATH" -Value $newPath -EnvType $envType
 }
 
 Function Ensure-On-Path()
@@ -34,6 +34,6 @@ Function Ensure-On-Path()
   If (-Not $pathComponents.Contains($element)) {
     $newPathComponents = $pathComponents + (,$element)
     $newPath = $newPathComponents -join ";"
+    Set-Env-Var -Name "PATH" -Value $newPath -EnvType $envType
   }
-  [Environment]::SetEnvironmentVariable("PATH", $newPath, $envType)
 }
