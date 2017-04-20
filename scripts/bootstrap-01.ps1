@@ -53,3 +53,11 @@ Install-Resource-File -ResourcePath "bash\.allbashrc" -InstallPath "$HOME\.allba
 Install-Resource-File -ResourcePath "bash\.inputrc" -InstallPath "$HOME\.inputrc" -name "inputrc"
 Install-Resource-File -ResourcePath "bash\.bash_profile" -InstallPath "$HOME\.bash_profile" -name "bash_profile"
 Install-Resource-File -ResourcePath "bash\.bashrc" -InstallPath "$HOME\.bashrc" -name "bashrc"
+
+### ConEmu Setup
+Install-Resource-File -ResourcePath "conemu\ConEmu.xml" -InstallPath "$Env:ProgramFiles\ConEmu\ConEmu.xml" -name "ConEmu.xml"
+$groovyIcoPath = "$Env:GROOVY_HOME\bin\groovy.ico"
+If (-Not (Test-Path $groovyIcoPath))
+{
+  Install-Resource-File -ResourcePath "conemu\groovy.ico" -InstallPath $groovyIcoPath -name "groovy.ico"
+}
