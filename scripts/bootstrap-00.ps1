@@ -7,6 +7,7 @@ Initialize-Backup
 Init-Manual-Steps
 
 . "$PSScriptRoot\bootstrap-01.ps1"
+. "$PSScriptRoot\bootstrap-1password-stuff.ps1"
 . "$PSScriptRoot\bootstrap-brownbag-stuff.ps1"
 . "$PSScriptRoot\bootstrap-docker-stuff.ps1"
 . "$PSScriptRoot\bootstrap-java-stuff.ps1"
