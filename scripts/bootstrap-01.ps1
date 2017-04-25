@@ -40,6 +40,7 @@ Ensure-At-Start-Of-Path -Element "C:\Program Files\Git\usr\bin"
 # Copy git config
 Install-Resource-File -ResourcePath "git\.gitconfig" -InstallPath "$HOME\.gitconfig" -name "gitconfig"
 Install-Resource-File -ResourcePath "git\.gitignore-global" -InstallPath "$HOME\.gitignore-global" -name "gitignore-global"
+Install-Resource-File -ResourcePath "git\.git-completion.bash" -InstallPath "$HOME\.git-completion.bash" -name "git-completion"
 
 ### Mercurial
 choco install -y hg

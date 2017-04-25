@@ -40,3 +40,7 @@
     #Diffs that have been staged
     staged = diff --staged
     stg = diff --staged
+
+    #Shows branches that aren't yet merged into the specified branch
+    unmerged = branch --no-merge
+    twigs = branch --no-merge
