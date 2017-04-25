@@ -20,6 +20,8 @@ Apm-Install -Package minimap
 Apm-Install -Package revert-buffer
 Apm-Install -Package rubocop
 Apm-Install -Package foodcritic
+Apm-Install -Package language-chef
+Apm-Install -Package language-awk
 
 # Remove some packages I don't like, that some other setup scripts put there. (grumpycat)
 Apm-Uninstall -Package jsformat
