@@ -18,7 +18,8 @@ Apm-Install -Package linter-eslint
 Apm-Install -Package linter-markdown
 Apm-Install -Package minimap
 Apm-Install -Package revert-buffer
+Apm-Install -Package rubocop
+Apm-Install -Package foodcritic
 
 # Remove some packages I don't like, that some other setup scripts put there. (grumpycat)
 Apm-Uninstall -Package jsformat
-
