@@ -21,6 +21,10 @@ dive() {
     cd "$1"
 }
 
+check () {
+    eval $* && echo "TRUE" || echo "FALSE"
+}
+
 alias cd..="cd .."
 alias ..="cd .."
 alias ...="cd ../.."
@@ -33,6 +37,7 @@ alias bashrc='. ~/.bashrc'
 alias path='echo $PATH | tr ":" "\n"'
 alias mygroups='id -Gn | tr " " "\n"'
 alias ed="ed '-p> '"
+
 
 # Refresh the terminal after a resize, to get text wrapping fixed.
 alias refresh='kill -WINCH $$'
