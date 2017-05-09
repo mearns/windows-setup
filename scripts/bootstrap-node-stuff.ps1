@@ -13,6 +13,9 @@ Run-Command-Or-Fail ".\nvm.exe install v6.10"  # latest LTS, atm
 Run-Command-Or-Fail ".\nvm.exe use v7.9.0"
 Pop-Location
 
+# Version 6.10.0 doesn't install with node.exe, it installs with node64.exe for some reason. Make node.exe a symlink to it.
+New-Item -Path C:\ProgramData\nvm\v6.10.0\node.exe -ItemType SymbolicLink -Value C:\ProgramData\nvm\v6.10.0\node64.exe
+
 # nvm is updating the path, but not for this process, so we nede to point directly
 # to the npm that nvm setup.
 Choco-Install jq # JSON CLI tool
