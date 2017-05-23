@@ -705,22 +705,25 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task14" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Task14" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="{Chub::HUB}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="&gt;cmd /K &quot;RenameTab hornetq &amp;&amp; cd d:\hornetq\horn*\bin &amp;&amp; d: &amp;&amp; run&quot;"/>
 					<value name="Active" type="long" data="1"/>
-					<value name="Count" type="long" data="7"/>
+					<value name="Count" type="long" data="10"/>
 					<value name="Cmd2" type="string" data="cmd /K &quot;RenameTab Batch &amp;&amp; cd d:\batch*e*\ &amp;&amp; d: &amp;&amp; timeout /t 10 &amp;&amp; del batchagent.pid  &amp;&amp; runbb&quot;"/>
-					<value name="Cmd3" type="string" data="cmd /K &quot;RenameTab UniversalWorker &amp;&amp; cd d:\u*e*ker\ &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; debugworker&quot;"/>
-					<value name="Cmd4" type="string" data="cmd /K &quot;RenameTab Tomcat &amp;&amp; cd d:\tomcat\apache-tomcat-7.0.42\bin &amp;&amp; d: &amp;&amp; timeout /t 10 &amp;&amp; run&quot;"/>
-					<value name="Cmd5" type="string" data="cmd /K &quot;RenameTab Broadcaster &amp;&amp; cd d:\broadcaster &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; mockbroadcaster&quot;"/>
-					<value name="Cmd6" type="string" data="cmd /K &quot;RenameTab HubFileListener &amp;&amp; cd d:\hubfilelistener &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; listener&quot;"/>
-					<value name="Cmd7" type="string" data="cmd /K &quot;RenameTab james &amp;&amp; cd D:\james\james-2.3.2\bin &amp;&amp; d: &amp;&amp; run&quot;"/>
+					<value name="Cmd3" type="string" data="cmd /K &quot;RenameTab Tomcat &amp;&amp; cd d:\tomcat\apache-tomcat-7.0.42\bin &amp;&amp; d: &amp;&amp; timeout /t 10 &amp;&amp; run&quot;"/>
+					<value name="Cmd4" type="string" data="cmd /K &quot;RenameTab Broadcaster &amp;&amp; cd d:\broadcaster &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; mockbroadcaster&quot;"/>
+					<value name="Cmd5" type="string" data="cmd /K &quot;RenameTab HubFileListener &amp;&amp; cd d:\hubfilelistener &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; listener&quot;"/>
+					<value name="Cmd6" type="string" data="cmd /K &quot;RenameTab hubftpd &amp;&amp; cd d:\hubftpd\bin &amp;&amp; d: &amp;&amp; hubftpd&quot;"/>
+					<value name="Cmd7" type="string" data="cmd /K &quot;RenameTab UniversalWorker-10 &amp;&amp; cd d:\UniversalWorker\ &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; debugworker 511 10 512&quot;"/>
+					<value name="Cmd8" type="string" data="cmd /K &quot;RenameTab UniversalWorker-20 &amp;&amp; cd d:\UniversalWorker\ &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; debugworker 512 20 512&quot;"/>
+					<value name="Cmd9" type="string" data="cmd /K &quot;RenameTab UniversalWorker-30 &amp;&amp; cd d:\UniversalWorker\ &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; debugworker 513 30 512&quot;"/>
+					<value name="Cmd10" type="string" data="cmd /K &quot;RenameTab UniversalWorker-80 &amp;&amp; cd d:\UniversalWorker\ &amp;&amp; d: &amp;&amp; timeout /t 15 &amp;&amp; debugworker 518 80 512&quot;"/>
 				</key>
-				<key name="Task15" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Task15" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="{Chub::ATS}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -730,7 +733,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="2"/>
 				</key>
-				<key name="Task16" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Task16" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="{Chub::Universal Worker}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -739,7 +742,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task17" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Task17" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="{Chub::Payload Generator}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -748,7 +751,7 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task18" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Task18" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="{Tests::Show ANSI colors}"/>
 					<value name="Flags" type="dword" data="00000000"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
@@ -758,12 +761,12 @@
 					<value name="Count" type="long" data="1"/>
 				</key>
 			</key>
-			<key name="Apps" modified="2017-04-20 08:34:24" build="161206">
+			<key name="Apps" modified="2017-05-23 11:20:33" build="161206">
 				<value name="Count" type="long" data="0"/>
 			</key>
-			<key name="Colors" modified="2017-04-20 08:34:24" build="161206">
+			<key name="Colors" modified="2017-05-23 11:20:33" build="161206">
 				<value name="Count" type="long" data="10"/>
-				<key name="Palette1" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette1" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="cmd"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -804,7 +807,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette2" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette2" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="cmd-admin"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -845,7 +848,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette3" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette3" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="gnuplot"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -886,7 +889,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette4" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette4" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="groovy"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -927,7 +930,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette5" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette5" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="ipython"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -968,7 +971,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette6" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette6" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="nodejs"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -1009,7 +1012,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette7" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette7" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="powershell"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -1050,7 +1053,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette8" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette8" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="powershell-admin"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -1091,7 +1094,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette9" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette9" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="python"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
@@ -1132,7 +1135,7 @@
 					<value name="ColorTable30" type="dword" data="0000ffff"/>
 					<value name="ColorTable31" type="dword" data="00ffffff"/>
 				</key>
-				<key name="Palette10" modified="2017-04-20 08:34:24" build="161206">
+				<key name="Palette10" modified="2017-05-23 11:20:33" build="161206">
 					<value name="Name" type="string" data="ruby"/>
 					<value name="ExtendColors" type="hex" data="00"/>
 					<value name="ExtendColorIdx" type="hex" data="0e"/>
